@@ -1,6 +1,11 @@
 Changelog
 =========
 
+4.4 (unreleases)
+----------------
+
+* Plone 5 compatibility [tomgross]
+
 4.3 (2013-09-18)
 ----------------
 
