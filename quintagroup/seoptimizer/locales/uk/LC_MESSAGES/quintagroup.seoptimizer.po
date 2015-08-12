@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # Olha Pelishok <olha.pelishok@gmail.com>, 2010
 # Roman Kozlovskiy <krzroman@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Quintagroup\n"
-"POT-Creation-Date: 2010-12-01 02:13+0000\n"
+"POT-Creation-Date: 2015-08-12 06:04+0000\n"
 "PO-Revision-Date: 2013-05-22 14:00+0000\n"
 "Last-Translator: Roman Kozlovskiy <krzroman@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/quintagroup/language/uk/)\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Domain: quintagroup.seoptimizer\n"
 "Language: uk\n"
 
-#: ./browser/keywords.py:37
+#: ./browser/keywords.py:39
 msgid "Keywords list is empty!"
 msgstr "Список ключових слів порожній!"
 
@@ -33,7 +33,7 @@ msgstr "SEO налаштування"
 msgid "Search Engine Optimizer"
 msgstr "Оптимізатор Пошукових Систем"
 
-#: ./browser/seo_configlet.py:194
+#: ./browser/seo_configlet.py:207
 msgid "Search Engine Optimizer configuration"
 msgstr "Конфігурація Оптимізатора Пошукових Систем"
 
@@ -43,17 +43,17 @@ msgid "description_edit_seo_properties"
 msgstr "Ця форма дозволяє редагувати мета теґи, які генерує СКВ Plone, з метою збільшення видимості сайту для пошукових систем. Значення, які генерує Plone по замовчуванню, введено у відповідних полях. Щоб перекрити значення за замовчуванням, поставте галочку біля відповідного поля та введіть потрібне значення."
 
 #. Default: "Make keywords test by opening context url as external resource with urllib2.openurl(). This is useful when xdv/Deliverance transformation is used on the site."
-#: ./browser/seo_configlet.py:93
+#: ./browser/seo_configlet.py:102
 msgid "description_external_keywords_test"
 msgstr "Зробити тест ключових слів, відкривши контекстний URL як зовнішній ресурс з urllib2.openurl(). Це корисно, коли xdv/Deliverance перетворення використовується на сайті."
 
 #. Default: "Select content types that will have SEO properties enabled."
-#: ./browser/seo_configlet.py:49
+#: ./browser/seo_configlet.py:57
 msgid "description_seo_content_types"
 msgstr "Виберіть типи вмісту, для яких буде можливо прописувати SEO властивості."
 
 #. Default: "Controls if <abbr title=\"Dublin Core\">DC</abbr> metatags are exposed to page header. They include DC.description, DC.type, DC.format, DC.creator and others."
-#: ./browser/seo_configlet.py:30
+#: ./browser/seo_configlet.py:38
 msgid "description_seo_dc_metatags"
 msgstr "Чи показувати <abbr title=\"Dublin Core\">DC</abbr> мета теґи в коді сторінки, включаючи такі мета теґи,  як DC.description, DC.type, DC.format, DC.creator тощо."
 
@@ -63,32 +63,33 @@ msgid "heading_edit_seo_properties"
 msgstr "Редагувати властивості SEO"
 
 #. Default: "This JavaScript code will be included in the rendered HTML as entered in the page header."
-#: ./browser/seo_configlet.py:70
+#: ./browser/seo_configlet.py:78
 msgid "help_custom_script"
 msgstr "Цей JavaScript код один до одного буде включено у HTML заголовок."
 
 #. Default: "Fill in custom metatag names (one per line) which will appear on qseo_properties edit tab. Example: \"metaname|metacontent\" or \"metaname\"."
-#: ./browser/seo_configlet.py:59
+#: ./browser/seo_configlet.py:68
 msgid "help_default_custom_metatags"
 msgstr "Введіть назви додаткових мета теґів (по 1 в кожному рядку), які з'являться при редагуванні  SEO властивостей об'єктів сайту. Наприклад: \"metaname | metacontent \" або \"metaname \"."
 
-#. Default: "Fill in filds (one per line) which statistics of keywords usage should be calculated for."
-#: ./browser/seo_configlet.py:78
+#. Default: "Fill in filds (one per line)which statistics of keywords usage should be calculated for."
+#: ./browser/seo_configlet.py:87
+#, fuzzy
 msgid "help_fields"
 msgstr "Уведіть список полів (одне на лінію), по яким ви бажаєте обраховувати статистику використання ключових слів."
 
 #. Default: "Fill in meta tags (one per line) in the order in which they will appear on site source pages. Example: \"metaname accessor\"."
-#: ./browser/seo_configlet.py:41
+#: ./browser/seo_configlet.py:49
 msgid "help_metatags_order"
 msgstr "Ввведіть по 1 мета теґу в рядок у тому порядку, в якому вони будуть з'являтися при перегляді коду сторінки. Наприклад: \"metaname accessor\"."
 
 #. Default: "Specify your canonical URL. If your site has identical or vastly similar content that's accessible through multiple URLs, this format provides you with more control over the URL returned in search results."
-#: ./browser/templates/seo_context_properties.pt:207
+#: ./browser/templates/seo_context_properties.pt:230
 msgid "help_seo_canonical"
 msgstr "Вкажіть canonical URL. Якщо на Вашому сайті є ідентичні або дуже схожі за вмістом сторінки, доступні за кількома URL-адресами, це поле забезпечить Вам більший контроль над тією URL-адресою, яка відображатиметься  в результатах пошуку."
 
 #. Default: "Here you can manage your custom meta tags. Specify local Meta Tags parameters to be added to the global Meta Tags. If metacontent field is empty, then a meta tag will not be present on this page."
-#: ./browser/templates/seo_context_properties.pt:235
+#: ./browser/templates/seo_context_properties.pt:258
 msgid "help_seo_custommetatags"
 msgstr "Тут ви можете управляти додатковими мета теґами. Вкажіть параметри локальних мета теґів, які буде додано до глобальних мета-теґів. Якщо поле metacontent - пусте, то такий мета теґ не буде показано на цій сторінці."
 
@@ -98,7 +99,7 @@ msgid "help_seo_description"
 msgstr "Опис документа, який будуть використовувати пошукові системи. Цей текст буде присутній в мета тезі description в коді сторінки."
 
 #. Default: "Distribution meta tag to designate time and area distribution of the document."
-#: ./browser/templates/seo_context_properties.pt:180
+#: ./browser/templates/seo_context_properties.pt:203
 msgid "help_seo_distribution"
 msgstr "Мета теґ Distribution використовується для позначення часу та місця розповсюдження документа."
 
@@ -112,8 +113,13 @@ msgstr "Коментарі, додані в HTML заголовок."
 msgid "help_seo_keywords"
 msgstr "Ключові слова, по яких сторінку буде проіндексовано. <strong>Буль-ласка, введіть кожне ключове слово в окремому рядку.</strong> <br /> Використовуйте кнопку 'Check Keywords', щоб перевірити чи слова, які ви вказали в цьому блоці, є наявні на сторінці."
 
-#. Default: "Robots meta tag value. Allows or denies indexing, following links, etc. for spiders indexing your content."
+#. Default: "Noframes into HTML header."
 #: ./browser/templates/seo_context_properties.pt:155
+msgid "help_seo_noframes"
+msgstr ""
+
+#. Default: "Robots meta tag value. Allows or denies indexing, following links, etc. for spiders indexing your content."
+#: ./browser/templates/seo_context_properties.pt:178
 msgid "help_seo_robots"
 msgstr "Значення мета теґу Robots. Дозволяє або забороняє індексування, перехід за посиланнями тощо."
 
@@ -123,52 +129,52 @@ msgid "help_seo_title"
 msgstr "Текст, який буде показано в тезі  &lt;TITLE&gt;. Його буде видно у заголовку переглядача. Пошукові системи відображатимуть цей текст як назву документа."
 
 #. Default: "Fill in stop words (one per line) which will be excluded from kewords statistics calculation."
-#: ./browser/seo_configlet.py:85
+#: ./browser/seo_configlet.py:94
 msgid "help_stop_words"
 msgstr "Уведіть список небажаних слів (одне на лінію), які повинні бути виключені із обрахунку статистики використання ключових слів."
 
 #. Default: "Canonical URL"
-#: ./browser/templates/seo_context_properties.pt:204
+#: ./browser/templates/seo_context_properties.pt:227
 msgid "label_canonical_tag"
 msgstr "Канонічна URL адреса"
 
 #. Default: "Content Types"
-#: ./browser/seo_configlet.py:48
+#: ./browser/seo_configlet.py:56
 msgid "label_content_type_title"
 msgstr "Типи вмісту"
 
 #. Default: "Custom Meta Tags"
-#: ./browser/templates/seo_context_properties.pt:232
+#: ./browser/templates/seo_context_properties.pt:255
 msgid "label_custom_metatags"
 msgstr "Додаткові мета теґи"
 
 #. Default: "Header JavaScript"
-#: ./browser/seo_configlet.py:69
+#: ./browser/seo_configlet.py:77
 msgid "label_custom_script"
 msgstr "Додатковий JavaScript"
 
 #. Default: "Default custom metatags."
-#: ./browser/seo_configlet.py:58
+#: ./browser/seo_configlet.py:66
 msgid "label_default_custom_metatags"
 msgstr "Додаткові мета теґи"
 
 #. Default: "Distribution Tag"
-#: ./browser/templates/seo_context_properties.pt:177
+#: ./browser/templates/seo_context_properties.pt:200
 msgid "label_distribution_tag"
 msgstr "Мета теґ Distribution"
 
 #. Default: "Expose <abbr title=\"Dublin Core\">DC</abbr> meta tags"
-#: ./browser/seo_configlet.py:28
+#: ./browser/seo_configlet.py:35
 msgid "label_exposeDCMetaTags"
 msgstr "Показувати мета теґи <abbr title=\"Dublin Core\">DC</abbr>"
 
 #. Default: "External keywords check"
-#: ./browser/seo_configlet.py:91
+#: ./browser/seo_configlet.py:100
 msgid "label_external_keywords_test"
 msgstr "Зовнішня перевірка ключових слів"
 
 #. Default: "Fields for keywords statistic calculation."
-#: ./browser/seo_configlet.py:77
+#: ./browser/seo_configlet.py:85
 msgid "label_fields"
 msgstr "Поля для статистичних обрахунків"
 
@@ -188,9 +194,14 @@ msgid "label_meta_keywords_tag"
 msgstr "Мета теґ Keywords"
 
 #. Default: "Meta tags order in the page."
-#: ./browser/seo_configlet.py:39
+#: ./browser/seo_configlet.py:47
 msgid "label_metatags_order"
 msgstr "Порядок мета теґів на сторінці."
+
+#. Default: "HTML Noframes"
+#: ./browser/templates/seo_context_properties.pt:152
+msgid "label_noframes"
+msgstr ""
 
 #. Default: "Override"
 #: ./browser/templates/seo_context_properties.pt:61
@@ -203,44 +214,44 @@ msgid "label_page_title_tag"
 msgstr "Мета теґ Title"
 
 #. Default: "Robot Tag"
-#: ./browser/templates/seo_context_properties.pt:152
+#: ./browser/templates/seo_context_properties.pt:175
 msgid "label_robot_tag"
 msgstr "Мета теґ Robot"
 
 #. Default: "Advanced"
-#: ./browser/seo_configlet.py:181
+#: ./browser/seo_configlet.py:192
 msgid "label_seoadvanced"
 msgstr "Розширені налаштування"
 
 #. Default: "Base"
-#: ./browser/seo_configlet.py:177
+#: ./browser/seo_configlet.py:188
 msgid "label_seobase"
 msgstr "Базові налаштування"
 
 #. Default: "Stop words."
-#: ./browser/seo_configlet.py:84
+#: ./browser/seo_configlet.py:93
 msgid "label_stop_words"
 msgstr "Небажані слова"
 
 #. Default: "Number of keywords at page:\n${result}"
-#: ./browser/keywords.py:75
+#: ./browser/keywords.py:82
 msgid "number_keywords"
 msgstr ""
 "Кількість знайдених ключових слів на сторінці:\n"
 "${result}"
 
 #. Default: "You can select what content types are qSEOptimizer-enabled, and control if Dublin Core metatags are exposed in the header of content pages."
-#: ./browser/seo_configlet.py:195
+#: ./browser/seo_configlet.py:208
 msgid "seo_configlet_description"
 msgstr "Тут Ви можете вибрати, які типи вмісту матимуть можливіть налаштування SEO властивостей, а також налаштувати інші SEO параметри на Вашому сайті."
 
 #. Default: "No content SEO properties have been changed."
-#: ./browser/views.py:307
+#: ./browser/views.py:346
 msgid "seoproperties_canceled"
 msgstr "SEO налаштування вмісту не були збережені."
 
 #. Default: "Content SEO properties have been saved."
-#: ./browser/views.py:299
+#: ./browser/views.py:338
 msgid "seoproperties_saved"
 msgstr "SEO властивості збереженно."
 
