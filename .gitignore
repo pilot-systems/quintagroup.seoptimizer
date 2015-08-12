@@ -1,5 +1,4 @@
-*.py?
-*.pyc
+*.py[cod]
 .DS_Store
 *~
 *.egg-info
@@ -13,3 +12,4 @@ parts/
 var/
 buildout-cache/
 src/
+*.mo
