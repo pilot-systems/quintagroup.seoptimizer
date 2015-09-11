@@ -15,6 +15,7 @@ from quintagroup.seoptimizer.interfaces import IMappingMetaTags
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 
 from Products.CMFPlone.PloneTool import FLOOR_DATE, CEILING_DATE
+from plone import api
 
 
 def escape(value):
@@ -36,23 +37,19 @@ class SEOTagsViewlet(ViewletBase):
 
     def listMetaTags(self):
         """Calculate list metatags"""
-
-        result = SortedDict()
-        pps = queryMultiAdapter((self.context, self.request),
-                                name="plone_portal_state")
-        seo_global = queryAdapter(pps.portal(), ISEOConfigletSchema)
         seo_context = queryMultiAdapter((self.context, self.request),
-                                        name='seo_context')
-
-        use_all = seo_global.exposeDCMetaTags
+                                         name='seo_context')
+        result = OrderedDict()
+        use_all = api.portal.get_registry_record(
+            name='quintagroup.seoptimizer.exposeDCMetaTags')
         adapter = IMappingMetaTags(self.context, None)
         mapping_metadata = adapter and adapter.getMappingMetaTags() \
-            or SortedDict()
+            or OrderedDict()
 
         if not use_all:
             metadata_names = 'DC.description' in mapping_metadata and \
                 {'DC.description': mapping_metadata['DC.description']} \
-                or SortedDict()
+                or OrderedDict()
             if 'description' in mapping_metadata:
                 metadata_names['description'] = mapping_metadata['description']
         else:

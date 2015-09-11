@@ -17,6 +17,7 @@ from quintagroup.canonicalpath.adapters import PROPERTY_LINK \
 
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
+from plone import api
 
 SEPERATOR = '|'
 SEO_PREFIX = 'seo_'
@@ -360,8 +361,5 @@ class VisibilityCheckerView(BrowserView):
     def checkVisibilitySEOAction(self):
         """ Checks visibility 'SEO Properties' action for content
         """
-        aq_inner(self.context)
-        plone = queryMultiAdapter((self, self.request),
-                                  name="plone_portal_state").portal()
-        adapter = ISEOConfigletSchema(plone)
-        return bool(self.context.portal_type in adapter.types_seo_enabled)
+        return bool(api.portal.get_registry_record(
+            name='quintagroup.seoptimizer.types_seo_enabled'))
