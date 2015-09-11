@@ -2,7 +2,7 @@ from zope.interface import implements
 from zope.component import queryAdapter
 from zope.component import queryMultiAdapter
 
-from quintagroup.seoptimizer.util import SortedDict
+from collections import OrderedDict
 from quintagroup.seoptimizer.interfaces import IMetaKeywords, IMappingMetaTags
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 
@@ -54,7 +54,7 @@ class MappingMetaTags(object):
     def getMappingMetaTags(self):
         """ See interface.
         """
-        metadata_name = SortedDict()
+        metadata_name = OrderedDict()
         if self.gseo:
             for mt in self.gseo.metatags_order:
                 if mt in METADATA_MAPS:

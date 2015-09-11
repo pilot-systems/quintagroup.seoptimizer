@@ -9,7 +9,7 @@ from plone.app.layout.viewlets.common import ViewletBase
 
 from Products.CMFPlone.utils import safe_unicode, getSiteEncoding
 
-from quintagroup.seoptimizer.util import SortedDict
+from collections import OrderedDict
 from quintagroup.seoptimizer.interfaces import IMetaKeywords
 from quintagroup.seoptimizer.interfaces import IMappingMetaTags
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema

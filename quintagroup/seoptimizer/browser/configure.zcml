@@ -42,6 +42,7 @@
         class=".seo_configlet.SEOConfiglet"
         layer=".interfaces.IPloneSEOLayer"
         permission="cmf.ManagePortal"
+        zcml:condition="not-have plone-5"
         />
 
     <!-- The customized title -->
