@@ -5,6 +5,7 @@ from zope.schema import SourceText
 from plone.app.registry.browser import controlpanel
 from z3c.form import field
 from z3c.form import group
+from plone.registry import field as reg_field
 
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
 
@@ -31,6 +32,7 @@ class ISEOConfigletBaseSchema(Interface):
                       default='Fill in meta tags (one per line) in the order '
                       'in which they will appear on site source pages. '
                       'Example: "metaname accessor".'),
+        value_type=reg_field.TextLine(title=u"Value"),
         required=False)
 
     types_seo_enabled = Tuple(
@@ -39,7 +41,7 @@ class ISEOConfigletBaseSchema(Interface):
                       default='Select content types that will have SEO '
                       'properties enabled.'),
         required=False,
-        missing_value=tuple(),
+        default=tuple(),
         value_type=Choice(
             vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes"))
 
@@ -50,6 +52,8 @@ class ISEOConfigletBaseSchema(Interface):
                       default='Fill in custom metatag names (one per line) '
                       'which will appear on qseo_properties edit tab. '
                       'Example: "metaname|metacontent" or "metaname".'),
+        value_type=reg_field.TextLine(title=u"Value"),
+        default=list(),
         required=False)
 
 
@@ -68,6 +72,7 @@ class ISEOConfigletAdvancedSchema(Interface):
         description=_("help_fields", default='Fill in filds (one per line)'
                       'which statistics of keywords usage should '
                       'be calculated for.'),
+        value_type=reg_field.TextLine(title=u"Value"),
         required=False)
 
     stop_words = List(
@@ -75,6 +80,7 @@ class ISEOConfigletAdvancedSchema(Interface):
         description=_("help_stop_words", default='Fill in stop words '
                       '(one per line) which will be excluded from kewords '
                       'statistics calculation.'),
+        value_type=reg_field.TextLine(title=u"Value"),
         required=False)
 
     external_keywords_test = Bool(
@@ -108,7 +114,7 @@ class ISEOConfigletSchema(ISEOConfigletBaseSchema,
 class SEOConfigletForm(controlpanel.RegistryEditForm):
 
     id = "SEOConfiglet"
-
+    schema_prefix = "quintagroup.seoptimizer"
 
     schema = ISEOConfigletSchema
     label = _("Search Engine Optimizer configuration")

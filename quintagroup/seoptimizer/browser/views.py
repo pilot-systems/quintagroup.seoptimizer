@@ -15,7 +15,6 @@ from quintagroup.canonicalpath.interfaces import ICanonicalLink
 from quintagroup.canonicalpath.adapters import PROPERTY_LINK \
     as CANONICAL_PROPERTY
 
-from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
 from plone import api
 
@@ -41,7 +40,6 @@ class SEOContext(BrowserView):
                                      name="plone_portal_state")
         self.pcs = queryMultiAdapter((self.context, self.request),
                                      name="plone_context_state")
-        self.gseo = queryAdapter(self.pps.portal(), ISEOConfigletSchema)
         self._seotags = self._getSEOTags()
 
     def __getitem__(self, key):
@@ -72,15 +70,15 @@ class SEOContext(BrowserView):
             "has_seo_title": self.context.hasProperty('qSEO_title'),
             "has_seo_robots": self.context.hasProperty('qSEO_robots'),
             "has_seo_description":
-            self.context.hasProperty('qSEO_description'),
+                self.context.hasProperty('qSEO_description'),
             "has_seo_distribution":
-            self.context.hasProperty('qSEO_distribution'),
+                self.context.hasProperty('qSEO_distribution'),
             "has_html_comment": self.context.hasProperty('qSEO_html_comment'),
             "has_noframes": self.context.hasProperty('qSEO_noframes'),
             "has_seo_keywords": self.context.hasProperty('qSEO_keywords'),
             "has_seo_canonical": self.context.hasProperty(CANONICAL_PROPERTY),
         }
-        #seotags["seo_nonEmptylocalMetaTags"] = \
+        # seotags["seo_nonEmptylocalMetaTags"] = \
         #    bool(seotags["seo_localCustomMetaTags"])
         return seotags
 
@@ -152,13 +150,14 @@ class SEOContext(BrowserView):
             in seo_properties.
         """
         result = []
-        if self.gseo:
-            for tag in self.gseo.default_custom_metatags:
+        default_custom_metatags = api.portal.get_registry_record('quintagroup.seoptimizer.default_custom_metatags')
+        if default_custom_metatags:
+            for tag in default_custom_metatags:
                 name_value = tag.split(SEPERATOR)
                 if name_value[0]:
                     result.append({'meta_name': name_value[0],
                                    'meta_content': len(name_value) == 2 and
-                                   name_value[1] or ''})
+                                                   name_value[1] or ''})
         return result
 
     # Not used
@@ -179,7 +178,6 @@ class SEOContextPropertiesView(BrowserView):
         super(SEOContextPropertiesView, self).__init__(*args, **kwargs)
         self.pps = queryMultiAdapter((self.context, self.request),
                                      name="plone_portal_state")
-        self.gseo = queryAdapter(self.pps.portal(), ISEOConfigletSchema)
 
     def test(self, condition, first, second):
         """
@@ -273,15 +271,15 @@ class SEOContextPropertiesView(BrowserView):
         """ Update seo custom metatags properties.
         """
         globalCustomMetaTags = []
-        if self.gseo:
-            custom_meta_tags = self.gseo.default_custom_metatags
+        custom_meta_tags = api.portal.get_registry_record('quintagroup.seoptimizer.default_custom_metatags')
+        if custom_meta_tags:
             for tag in custom_meta_tags:
                 name_value = tag.split(SEPERATOR)
                 if name_value[0]:
                     globalCustomMetaTags.append(
                         {'meta_name': name_value[0],
                          'meta_content': len(name_value) > 1 and
-                         name_value[1] or ''})
+                                         name_value[1] or ''})
         for tag in custommetatags:
             meta_name, meta_content = tag['meta_name'], tag['meta_content']
             if meta_name:
@@ -311,7 +309,7 @@ class SEOContextPropertiesView(BrowserView):
         # self.gseo.stop_words return list of unicode objects,
         # and may contains stop words in different languages.
         # So we must return encoded strings.
-        sw = map(lambda x: unicode.encode(x, enc), self.gseo.stop_words)
+        sw = map(lambda x: unicode.encode(x, enc), api.portal.get_registry_record('quintagroup.seoptimizer.stop_words'))
         return str(sw)
 
     def getPropertyFields(self):
@@ -319,7 +317,7 @@ class SEOContextPropertiesView(BrowserView):
         """
         # self.gseo.fields return list of unicode objects,
         # so *str* use as encoding function from unicode to latin-1 string.
-        fields_id = map(str, self.gseo.fields)
+        fields_id = map(str, api.portal.get_registry_record('quintagroup.seoptimizer.fields'))
         return str(fields_id)
 
     def __call__(self):
@@ -345,7 +343,7 @@ class SEOContextPropertiesView(BrowserView):
             else:
                 # Cancel
                 msg = _('seoproperties_canceled', default=u'No content SEO '
-                        'properties have been changed.')
+                                                          'properties have been changed.')
 
             context.plone_utils.addPortalMessage(msg, msgtype)
             if msgtype == "info":

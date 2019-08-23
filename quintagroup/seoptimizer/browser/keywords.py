@@ -14,7 +14,6 @@ from Products.PortalTransforms.interfaces import IPortalTransformsTool
 
 from interfaces import IValidateSEOKeywordsView
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
-from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 
 
 class ValidateSEOKeywordsView(BrowserView):
@@ -27,8 +26,7 @@ class ValidateSEOKeywordsView(BrowserView):
         ts = getToolByName(self.context, 'translation_service')
         transforms = getUtility(IPortalTransformsTool)
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
-        query_adapter = queryAdapter(portal, ISEOConfigletSchema)
-        isExternal = query_adapter.external_keywords_test
+        isExternal = api.portal.get_registry_record('quintagroup.seoptimizer.external_keywords_test')
         # extract keywords from text
         enc = getSiteEncoding(self.context)
         if text.lower().strip():

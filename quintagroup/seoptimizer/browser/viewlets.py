@@ -12,7 +12,6 @@ from Products.CMFPlone.utils import safe_unicode, getSiteEncoding
 from collections import OrderedDict
 from quintagroup.seoptimizer.interfaces import IMetaKeywords
 from quintagroup.seoptimizer.interfaces import IMappingMetaTags
-from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 
 from Products.CMFPlone.PloneTool import FLOOR_DATE, CEILING_DATE
 from plone import api
@@ -202,12 +201,7 @@ class CustomScriptViewlet(ViewletBase):
     """ Simple viewlet for custom script rendering.
     """
     def getCustomScript(self):
-        pps = queryMultiAdapter((self.context, self.request),
-                                name="plone_portal_state")
-        gseo = queryAdapter(pps.portal(), ISEOConfigletSchema)
-        if gseo:
-            return gseo.custom_script
-        return ''
+        return api.portal.get_registry_record('quintagroup.custom_script') or ''
 
     def render(self):
         return safe_unicode("""%s""" % self.getCustomScript())

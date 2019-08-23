@@ -1,90 +1,97 @@
 <?xml version="1.0"?>
 <registry>
-  <records interface="quintagroup.seoptimizer.browser.seo_configlet.ISEOConfigletSchema"
-           prefix="quintagroup.seoptimizer">
-    <record key="stop_words" purge="False">
-      <element>a</element>
-      <element>an</element>
-      <element>amp</element>
-      <element>and</element>
-      <element>are</element>
-      <element>arial</element>
-      <element>as</element>
-      <element>at</element>
-      <element>be</element>
-      <element>but</element>
-      <element>by</element>
-      <element>can</element>
-      <element>com</element>
-      <element>do</element>
-      <element>font</element>
-      <element>for</element>
-      <element>from</element>
-      <element>gif</element>
-      <element>had</element>
-      <element>has</element>
-      <element>have</element>
-      <element>he</element>
-      <element>helvetica</element>
-      <element>her</element>
-      <element>his</element>
-      <element>how</element>
-      <element>href</element>
-      <element>i</element>
-      <element>if</element>
-      <element>in</element>
-      <element>is</element>
-      <element>it</element>
-      <element>javascript</element>
-      <element>jpeg</element>
-      <element>made</element>
-      <element>net</element>
-      <element>of</element>
-      <element>on</element>
-      <element>or</element>
-      <element>org</element>
-      <element>our</element>
-      <element>sans</element>
-      <element>serif</element>
-      <element>she</element>
-      <element>that</element>
-      <element>the</element>
-      <element>this</element>
-      <element>to</element>
-      <element>us</element>
-      <element>we</element>
-      <element>with</element>
-      <element>you</element>
-      <element>your</element>
-  </record>
-  <record key="fields" purge='False'>
-   <element>seo_title</element>
-   <element>seo_description</element>
-   <element>seo_keywords"</element>
-  </record>
-  <record key="metatags_order" purge='False'>
-   <element>DC.publisher</element>
-   <element>DC.description</element>
-   <element>DC.contributors</element>
-   <element>DC.creator</element>
-   <element>DC.format</element>
-   <element>DC.rights</element>
-   <element>DC.language</element>
-   <element>DC.date.modified</element>
-   <element>DC.date.created</element>
-   <element>DC.type</element>
-   <element>DC.subject</element>
-   <element>DC.distribution</element>
-   <element>description</element>
-   <element>keywords</element>
-   <element>robots</element>
-   <element>distribution</element>
-  </record>
-  <record key="content_types_with_seoproperties">
-   <element>Document</element>
-   <element>File</element>
-   <element>News Item</element>
-  </record>
-      <record key="external_keywords_test"></record>
-  </records>
+    <record name="quintagroup.seoptimizer.stop_words">
+        <value purge="false">
+            <element>a</element>
+            <element>an</element>
+            <element>amp</element>
+            <element>and</element>
+            <element>are</element>
+            <element>arial</element>
+            <element>as</element>
+            <element>at</element>
+            <element>be</element>
+            <element>but</element>
+            <element>by</element>
+            <element>can</element>
+            <element>com</element>
+            <element>do</element>
+            <element>font</element>
+            <element>for</element>
+            <element>from</element>
+            <element>gif</element>
+            <element>had</element>
+            <element>has</element>
+            <element>have</element>
+            <element>he</element>
+            <element>helvetica</element>
+            <element>her</element>
+            <element>his</element>
+            <element>how</element>
+            <element>href</element>
+            <element>i</element>
+            <element>if</element>
+            <element>in</element>
+            <element>is</element>
+            <element>it</element>
+            <element>javascript</element>
+            <element>jpeg</element>
+            <element>made</element>
+            <element>net</element>
+            <element>of</element>
+            <element>on</element>
+            <element>or</element>
+            <element>org</element>
+            <element>our</element>
+            <element>sans</element>
+            <element>serif</element>
+            <element>she</element>
+            <element>that</element>
+            <element>the</element>
+            <element>this</element>
+            <element>to</element>
+            <element>us</element>
+            <element>we</element>
+            <element>with</element>
+            <element>you</element>
+            <element>your</element>
+        </value>
+    </record>
+    <record name="quintagroup.seoptimizer.fields">
+        <value purge="false">
+            <element>seo_title</element>
+            <element>seo_description</element>
+            <element>seo_keywords"</element>
+        </value>
+    </record>
+    <record name="quintagroup.seoptimizer.metatags_order" >
+        <value purge="false">
+            <element>DC.publisher</element>
+            <element>DC.description</element>
+            <element>DC.contributors</element>
+            <element>DC.creator</element>
+            <element>DC.format</element>
+            <element>DC.rights</element>
+            <element>DC.language</element>
+            <element>DC.date.modified</element>
+            <element>DC.date.created</element>
+            <element>DC.type</element>
+            <element>DC.subject</element>
+            <element>DC.distribution</element>
+            <element>description</element>
+            <element>keywords</element>
+            <element>robots</element>
+            <element>distribution</element>
+        </value>
+    </record>
+    <record name="quintagroup.seoptimizer.types_seo_enabled">
+        <value purge="false">
+            <element>Document</element>
+            <element>File</element>
+            <element>News Item</element>
+        </value>
+    </record>
+    <record name="quintagroup.seoptimizer.external_keywords_test">
+        <value>False</value>
+    </record>
 </registry>

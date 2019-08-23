@@ -90,7 +90,7 @@ function loadStatistics(event){
     };
 };
 
-registerPloneFunction(loadStatistics);
+loadStatistics();
 
 
 /******************************************************************
@@ -142,7 +142,7 @@ function addSeoKeywordsButton(event) {
     }
 }
 
-registerPloneFunction(addSeoKeywordsButton);
+addSeoKeywordsButton();
 
 /******************************************************************
 
