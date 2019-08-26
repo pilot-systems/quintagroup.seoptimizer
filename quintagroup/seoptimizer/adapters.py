@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.component import queryAdapter
 from zope.component import queryMultiAdapter
 
@@ -25,8 +25,8 @@ METADATA_MAPS = dict([
     ("distribution", "seo_distribution")])
 
 
+@implementer(IMetaKeywords)
 class MetaKeywordsAdapter(object):
-    implements(IMetaKeywords)
 
     def __init__(self, context):
         self.context = context
@@ -42,8 +42,9 @@ class MetaKeywordsAdapter(object):
         return ', '.join(meta_keywords)
 
 
+implementer(IMappingMetaTags)
 class MappingMetaTags(object):
-    implements(IMappingMetaTags)
+
 
     def __init__(self, context):
         self.context = context

@@ -2,7 +2,7 @@ import re
 import sys
 import urllib2
 
-from zope.interface import implements
+from zope.interface import implementer
 from zope.component import getUtility
 from zope.component import queryAdapter
 
@@ -16,9 +16,8 @@ from interfaces import IValidateSEOKeywordsView
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
 
 
+implementer(IValidateSEOKeywordsView)
 class ValidateSEOKeywordsView(BrowserView):
-
-    implements(IValidateSEOKeywordsView)
 
     def validateKeywords(self):
         """ see interface """
