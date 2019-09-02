@@ -1,11 +1,11 @@
+import re
+
+from Products.CMFCore.utils import getToolByName
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
+from quintagroup.canonicalpath.adapters import \
+    PROPERTY_LINK as CANONICAL_PROPERTY
 from quintagroup.canonicalpath.interfaces import ICanonicalLink
 from quintagroup.seoptimizer.tests.base import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
-import re
-from Products.CMFCore.utils import getToolByName
-from quintagroup.canonicalpath.adapters import PROPERTY_LINK \
-    as CANONICAL_PROPERTY
 
 
 class TestCanonicalURL(FunctionalTestCase):

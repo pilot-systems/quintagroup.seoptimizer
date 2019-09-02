@@ -2,17 +2,17 @@
 # Test product's installation
 #
 import string
-from zope.interface import alsoProvides
-from zope.component import queryMultiAdapter
-from zope.viewlet.interfaces import IViewletManager
-
-from quintagroup.canonicalpath.adapters import PROPERTY_LINK
-from quintagroup.seoptimizer.browser.interfaces import IPloneSEOLayer
-from quintagroup.seoptimizer.tests.base import TestCase, \
-    FunctionalTestCaseNotInstalled
-from quintagroup.seoptimizer.config import PROJECT_NAME, SUPPORT_BLAYER
 
 from Products.CMFCore.utils import getToolByName
+from quintagroup.canonicalpath.adapters import PROPERTY_LINK
+from quintagroup.seoptimizer.browser.interfaces import IPloneSEOLayer
+from quintagroup.seoptimizer.config import PROJECT_NAME, SUPPORT_BLAYER
+from quintagroup.seoptimizer.tests.base import (FunctionalTestCaseNotInstalled,
+                                                TestCase)
+from six.moves import map
+from zope.component import queryMultiAdapter
+from zope.interface import alsoProvides
+from zope.viewlet.interfaces import IViewletManager
 
 PROPERTY_SHEET = 'seo_properties'
 STOP_WORDS = ['a', 'an', 'amp', 'and', 'are', 'arial', 'as', 'at', 'be', 'but',
@@ -256,7 +256,7 @@ class TestReinstallation(TestCase):
         self.qi.reinstallProducts([PROJECT_NAME])
         for skin in skinstool.getSkinSelections():
             path = skinstool.getSkinPath(skin)
-            path = map(string.strip, string.split(path, ','))
+            path = list(map(string.strip, string.split(path, ',')))
             self.assertEqual(layer in path, False,
                              '%s layer found in %s after uninstallation'
                              % (layer, skin))

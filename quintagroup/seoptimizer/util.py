@@ -1,5 +1,7 @@
-from htmlentitydefs import entitydefs
 import re
+
+from six import unichr
+from six.moves.html_entities import entitydefs
 
 
 def _group_unescape(m):

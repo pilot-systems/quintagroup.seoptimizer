@@ -6,6 +6,12 @@ happens at module level, which makes it faster to run each test, but
 slows down test runner startup.
 """
 import transaction
+from Products.Five import fiveconfigure, zcml
+from Products.PloneTestCase import PloneTestCase as ptc
+from Products.PloneTestCase import setup as ptc_setup
+from Products.PloneTestCase.layer import PloneSite
+from quintagroup.seoptimizer.config import PROJECT_NAME
+from Testing import ZopeTestCase as ztc
 from zope.component import getUtility
 
 # Starting from plone.memoize v1.1a4 (used in plone4), global ram cache
@@ -18,16 +24,9 @@ except ImportError:
     # In plone3 provides
     from zope.app.cache.interfaces.ram import IRAMCache
 
-from Products.Five import zcml
-from Products.Five import fiveconfigure
 
-from Testing import ZopeTestCase as ztc
 
-from Products.PloneTestCase.layer import PloneSite
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase import setup as ptc_setup
 
-from quintagroup.seoptimizer.config import PROJECT_NAME
 
 ptc.setupPloneSite()
 

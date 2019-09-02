@@ -1,6 +1,7 @@
-from quintagroup.seoptimizer.tests.base import FunctionalTestCase, \
-    FunctionalTestCaseNotInstalled
 import re
+
+from quintagroup.seoptimizer.tests.base import (FunctionalTestCase,
+                                                FunctionalTestCaseNotInstalled)
 
 GENERATOR = re.compile('.*(<meta\s+(?:(?:name="generator"\s*)|'
                        '(?:content=".*?"\s*)){2}/>)', re.S | re.M)

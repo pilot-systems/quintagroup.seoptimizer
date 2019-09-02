@@ -1,10 +1,8 @@
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
+from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 from quintagroup.seoptimizer.tests.base import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
-
 from zope.formlib.form import FormFields
 from zope.schema.interfaces import IBool
-from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 
 
 class TestConfiglet(FunctionalTestCase):

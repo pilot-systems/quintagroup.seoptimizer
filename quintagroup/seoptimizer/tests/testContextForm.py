@@ -1,11 +1,12 @@
-import urllib
+import re
 from cStringIO import StringIO
 
-from quintagroup.seoptimizer.tests.base import FunctionalTestCase, \
-    IRAMCache, getUtility
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
-import re
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
+from quintagroup.seoptimizer.tests.base import (FunctionalTestCase, IRAMCache,
+                                                getUtility)
 
 CUSTOM_METATAGS = [{'meta_name': 'metatag1', 'meta_content': 'metatag1value'},
                    {'meta_name': 'metatag2', 'meta_content': 'metatag2value'},
@@ -67,7 +68,7 @@ class TestContextForm(FunctionalTestCase):
         # update seo properties for the test document and publish it
         self.publish(path=self.abs_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(FORM) + st))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(FORM) + st))
         self.wf.doActionFor(my_doc, 'publish')
         # get html view of test document
         self.html = self.publish(self.abs_path, self.basic_auth).getBody()
@@ -169,7 +170,7 @@ class TestContextForm(FunctionalTestCase):
 
         self.publish(path=self.abs_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         html = self.publish(self.abs_path, self.basic_auth).getBody()
 
         m = re.match(METATAG % ("metatag4", "global_metatag4value"), html,

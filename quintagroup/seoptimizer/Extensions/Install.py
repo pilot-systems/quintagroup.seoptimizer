@@ -1,7 +1,7 @@
 import logging
+
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.upgrade import _upgrade_registry
-
 from quintagroup.seoptimizer.config import PROJECT_NAME
 
 logger = logging.getLogger('quintagroup.seoptimizer')

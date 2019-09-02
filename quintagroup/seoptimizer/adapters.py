@@ -1,10 +1,9 @@
-from zope.interface import implementer
-from zope.component import queryAdapter
-from zope.component import queryMultiAdapter
-
 from collections import OrderedDict
-from quintagroup.seoptimizer.interfaces import IMetaKeywords, IMappingMetaTags
+
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
+from quintagroup.seoptimizer.interfaces import IMappingMetaTags, IMetaKeywords
+from zope.component import queryAdapter, queryMultiAdapter
+from zope.interface import implementer
 
 METADATA_MAPS = dict([
     ("DC.publisher", "Publisher"),

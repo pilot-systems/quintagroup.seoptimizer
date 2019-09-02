@@ -1,20 +1,15 @@
 import cgi
-from DateTime import DateTime
-from Acquisition import aq_inner
-
-from zope.component import queryAdapter
-from zope.component import queryMultiAdapter
-from zope.component import getMultiAdapter
-from plone.app.layout.viewlets.common import ViewletBase
-
-from Products.CMFPlone.utils import safe_unicode, getSiteEncoding
-
 from collections import OrderedDict
-from quintagroup.seoptimizer.interfaces import IMetaKeywords
-from quintagroup.seoptimizer.interfaces import IMappingMetaTags
 
-from Products.CMFPlone.PloneTool import FLOOR_DATE, CEILING_DATE
+from Acquisition import aq_inner
+from DateTime import DateTime
 from plone import api
+from plone.app.layout.viewlets.common import ViewletBase
+from Products.CMFPlone.PloneTool import CEILING_DATE, FLOOR_DATE
+from Products.CMFPlone.utils import safe_unicode
+from quintagroup.seoptimizer.interfaces import IMappingMetaTags, IMetaKeywords
+from six.moves import map
+from zope.component import getMultiAdapter, queryAdapter, queryMultiAdapter
 
 
 def escape(value):
@@ -29,7 +24,7 @@ class SEOTagsViewlet(ViewletBase):
 
     def render(self):
         TEMPLATE = '<meta name="%s" content="%s"/>'
-        enc = getSiteEncoding(self.context)
+        enc = 'utf-8'
         sfuncd = lambda x, enc=enc: safe_unicode(x, enc)
         return u'\n'.join([TEMPLATE % tuple(map(sfuncd, (k, v)))
                            for k, v in self.listMetaTags().items()])

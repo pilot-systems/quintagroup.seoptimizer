@@ -1,9 +1,9 @@
-from DateTime import DateTime
-
-from quintagroup.seoptimizer.tests.base import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
 import re
+
+from DateTime import DateTime
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
+from quintagroup.seoptimizer.tests.base import FunctionalTestCase
+from six.moves import map
 
 METATAG = '.*(<meta\s+(?:(?:name="%s"\s*)|(?:content="(?P<tagcontent>.' \
           '*?)"\s*)){2}/>)'
@@ -64,8 +64,8 @@ class TestExposeDCMetaTags(FunctionalTestCase):
                                      self.basic_auth))
         m = re.match(METATAG % "DC.date.valid_range", self.html, re.S | re.M)
         content = m and m.group("tagcontent")
-        fact = content and map(DateTime, content.split("-"))
-        expect = map(DateTime, [EFFDSTR, EXPDSTR])
+        fact = content and list(map(DateTime, content.split("-")))
+        expect = list(map(DateTime, [EFFDSTR, EXPDSTR]))
         self.assert_(fact == expect, '"DC.date.valid_range" meta tags '
                      'content="%s", but "%s" must be' % (fact, expect))
 

@@ -1,13 +1,15 @@
-from quintagroup.seoptimizer.tests.base import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
-
-import urllib2
 import re
 from StringIO import StringIO
+
+import six
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
+from quintagroup.seoptimizer.browser.interfaces import IPloneSEOLayer
+from quintagroup.seoptimizer.tests.base import FunctionalTestCase
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
-from quintagroup.seoptimizer.browser.interfaces import IPloneSEOLayer
 
 KWSTMPL = '.*(<meta\s+(?:(?:name="keywords"\s*)|(?:content="%s"\s*)){2}/>)'
 
@@ -89,12 +91,12 @@ class TestCalcKeywords(FunctionalTestCase):
                                           name="checkSEOKeywords")
 
     def patchURLLib(self, fnc):
-        self.orig_urlopen = urllib2.urlopen
+        self.orig_urlopen = six.moves.urllib.request.urlopen
         self.urlfd = StringIO()
-        urllib2.urlopen = fnc
+        six.moves.urllib.request.urlopen = fnc
 
     def unpatchURLLib(self):
-        urllib2.urlopen = self.orig_urlopen
+        six.moves.urllib.request.urlopen = self.orig_urlopen
         self.urlfd.close()
 
     def test_InternalPageRendering(self):
@@ -105,7 +107,7 @@ class TestCalcKeywords(FunctionalTestCase):
     def test_ExternalPageRendering(self):
         def patch_urlopen(*args, **kwargs):
             if args[0] == self.my_doc.absolute_url():
-                self.urlfd.write(unicode(self.my_doc() +
+                self.urlfd.write(six.text_type(self.my_doc() +
                                  self.key).encode("utf-8"))
                 self.urlfd.seek(0)
                 return self.urlfd
@@ -124,7 +126,7 @@ class TestCalcKeywords(FunctionalTestCase):
     def test_ExternalURLError(self):
         def patch_urlopen(*args, **kwargs):
             if args[0] == self.my_doc.absolute_url():
-                raise urllib2.URLError("Some URL Error occured")
+                raise six.moves.urllib.error.URLError("Some URL Error occured")
             else:
                 return self.orig_urlopen(*args, **kwargs)
         self.seo._updateProperty("external_keywords_test", True)
@@ -146,7 +148,7 @@ class TestCalcKeywords(FunctionalTestCase):
     def test_ExternalIOError(self):
         def patch_urlopen(*args, **kwargs):
             if args[0] == self.my_doc.absolute_url():
-                self.urlfd.write(unicode(self.my_doc() +
+                self.urlfd.write(six.text_type(self.my_doc() +
                                  self.key).encode("utf-8"))
                 self.urlfd.seek(0)
                 return self.urlfd

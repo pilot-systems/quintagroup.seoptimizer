@@ -1,13 +1,9 @@
-from zope.interface import Interface
-
-from zope.schema import Bool, Choice, Tuple, List
-from zope.schema import SourceText
 from plone.app.registry.browser import controlpanel
-from z3c.form import field
-from z3c.form import group
 from plone.registry import field as reg_field
-
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
+from z3c.form import field, group
+from zope.interface import Interface
+from zope.schema import Bool, Choice, List, SourceText, Tuple
 
 
 # Configlet schemas

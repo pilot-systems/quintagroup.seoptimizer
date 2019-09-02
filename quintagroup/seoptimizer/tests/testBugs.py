@@ -1,18 +1,17 @@
-import urllib
+import re
 from cStringIO import StringIO
 
-from zope.component import queryAdapter, getMultiAdapter
-from zope.interface import directlyProvides
-from zope.viewlet.interfaces import IViewlet, IViewletManager
-
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
+from Products.Five import zcml
+from Products.PloneTestCase.PloneTestCase import default_password, portal_owner
 from quintagroup.seoptimizer.browser.interfaces import IPloneSEOLayer
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
-
 from quintagroup.seoptimizer.tests.base import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import portal_owner, \
-    default_password
-import re
-from Products.Five import zcml
+from zope.component import getMultiAdapter, queryAdapter
+from zope.interface import directlyProvides
+from zope.viewlet.interfaces import IViewlet, IViewletManager
 
 
 class TestBugs(FunctionalTestCase):
@@ -48,7 +47,7 @@ class TestBugs(FunctionalTestCase):
 
         self.publish(path=fp.absolute_url(1) + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         viewlet.update()
         seo_title_comment = viewlet.render()
         return seo_title_comment
@@ -85,7 +84,7 @@ class TestBugs(FunctionalTestCase):
         md_before = self.my_doc.modification_date
         self.publish(path=self.mydoc_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         md_after = self.my_doc.modification_date
 
         self.assertNotEqual(md_before, md_after)
@@ -134,7 +133,7 @@ class TestBugs(FunctionalTestCase):
 
         self.publish(path=self.mydoc_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         html = self.publish(self.mydoc_path, self.basic_auth).getBody()
         m = re.match('.*<title>\\s*%s\\s*</title>' % escape(title), html,
                      re.S | re.M)
@@ -152,7 +151,7 @@ class TestBugs(FunctionalTestCase):
 
         self.publish(path=self.mydoc_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         html = self.publish(self.mydoc_path, self.basic_auth).getBody()
         m = re.match('.*<meta name="description" content="%s"' %
                      escape(description), html, re.S | re.M)
@@ -172,7 +171,7 @@ class TestBugs(FunctionalTestCase):
 
         self.publish(path=self.mydoc_path + '/@@seo-context-properties',
                      basic=self.basic_auth, request_method='POST',
-                     stdin=StringIO(urllib.urlencode(form_data)))
+                     stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         html = self.publish(self.mydoc_path, self.basic_auth).getBody()
         m = re.match('.*<!--\\s*%s\\s*-->' % escape(comment), html,
                      re.S | re.M)
@@ -269,7 +268,7 @@ class TestBug24AtPloneOrg(FunctionalTestCase):
                      'form.submitted:int': 1}
         res = self.publish(path=test_url, basic=self.editor_auth,
                            request_method='POST',
-                           stdin=StringIO(urllib.urlencode(form_data)))
+                           stdin=StringIO(six.moves.urllib.parse.urlencode(form_data)))
         self.assertNotEqual(res.status, 200)
 
 

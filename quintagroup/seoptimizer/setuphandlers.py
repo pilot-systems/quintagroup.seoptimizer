@@ -1,10 +1,8 @@
 import logging
 
-from zope.component import getSiteManager
-
 from config import SUPPORT_BLAYER
-
 from Products.CMFCore.utils import getToolByName
+from zope.component import getSiteManager
 
 logger = logging.getLogger('quintagroup.seoptimizer')
 

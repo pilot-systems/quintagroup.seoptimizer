@@ -1,13 +1,12 @@
 import logging
-from zope.component import queryMultiAdapter
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import getSiteEncoding, safe_unicode
-
+from Products.CMFPlone.utils import safe_unicode
+from quintagroup.canonicalpath.adapters import PROPERTY_LINK
+from quintagroup.canonicalpath.interfaces import ICanonicalLink
 from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 from quintagroup.seoptimizer.util import unescape
-from quintagroup.canonicalpath.interfaces import ICanonicalLink
-from quintagroup.canonicalpath.adapters import PROPERTY_LINK
+from zope.component import queryMultiAdapter
 
 logger = logging.getLogger('quintagroup.seoptimizer')
 FIX_PTYPES_DOMAIN = ['Document', 'File', 'News Item']
@@ -127,7 +126,7 @@ def renameProperty(obj, path):
             "property renamed to '%(name)s'."
         try:
             ICanonicalLink(obj).canonical_link = value
-        except Exception, e:
+        except Exception as e:
             level, msg = logging.ERROR, "%s on renaming 'qSEO_canonical' " \
                 "property for %%(url)s object" % str(e)
 
@@ -162,15 +161,14 @@ def unescapeOldTitle(setuptool):
 
     for b in brains:
         obj = b.getObject()
-        obj_enc = getSiteEncoding(obj)
 
         if obj.hasProperty("qSEO_title"):
-            uni_qSEO_title = safe_unicode(obj.qSEO_title, encoding=obj_enc)
-            fixed_title = unescape(uni_qSEO_title).encode(obj_enc)
+            uni_qSEO_title = safe_unicode(obj.qSEO_title, encoding='utf-8')
+            fixed_title = unescape(uni_qSEO_title).encode('utf-8')
             obj._updateProperty("qSEO_title", fixed_title)
 
         if obj.hasProperty("qSEO_html_comment"):
             uni_qSEO_html_comment = safe_unicode(obj.qSEO_html_comment,
-                                                 encoding=obj_enc)
-            fixed_comment = unescape(uni_qSEO_html_comment).encode(obj_enc)
+                                                 encoding='utf-8')
+            fixed_comment = unescape(uni_qSEO_html_comment).encode('utf-8')
             obj._updateProperty("qSEO_html_comment", fixed_comment)

@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
-from unittest import TestSuite, makeSuite, TestCase
+from unittest import TestCase, TestSuite, makeSuite
+
 from quintagroup.seoptimizer.util import unescape
 
 

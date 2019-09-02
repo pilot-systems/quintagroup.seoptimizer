@@ -1,20 +1,18 @@
 import re
 import sys
-import urllib2
 
-from zope.interface import implementer
-from zope.component import getUtility
-from zope.component import queryAdapter
-
-from Products.Five.browser import BrowserView
-
+import six
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
+from quintagroup.seoptimizer.browser.interfaces import IValidateSEOKeywordsView
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode, getSiteEncoding
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
 from Products.PortalTransforms.interfaces import IPortalTransformsTool
-
-from interfaces import IValidateSEOKeywordsView
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
-
+from zope.component import getUtility, queryAdapter
+from zope.interface import implementer
 
 implementer(IValidateSEOKeywordsView)
 class ValidateSEOKeywordsView(BrowserView):
@@ -27,10 +25,9 @@ class ValidateSEOKeywordsView(BrowserView):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         isExternal = api.portal.get_registry_record('quintagroup.seoptimizer.external_keywords_test')
         # extract keywords from text
-        enc = getSiteEncoding(self.context)
+        enc = 'utf-8'
         if text.lower().strip():
-            keywords = filter(None, map(lambda x: safe_unicode(x.strip(), enc),
-                              text.lower().strip().split('\n')))
+            keywords = [_f for _f in [safe_unicode(x.strip(), enc) for x in text.lower().strip().split('\n')] if _f]
         else:
             return ts.utranslate(domain='quintagroup.seoptimizer',
                                  msgid=_(u'Keywords list is empty!'),
@@ -43,12 +40,12 @@ class ValidateSEOKeywordsView(BrowserView):
             # 2. timeout option added in python 2.6
             #    (so acceptable only in plone4+)
             try:
-                resp = urllib2.urlopen(self.context.absolute_url())
+                resp = six.moves.urllib.request.urlopen(self.context.absolute_url())
                 try:
                     html = resp.read()
                 finally:
                     resp.close()
-            except (urllib2.URLError, urllib2.HTTPError):
+            except (six.moves.urllib.error.URLError, six.moves.urllib.error.HTTPError):
                 # In case of exceed timeout period or
                 # other URL connection errors.
                 # Get nearest to context error_log object
@@ -58,7 +55,7 @@ class ValidateSEOKeywordsView(BrowserView):
                 elog = getToolByName(self.context, "error_log")
                 error_url = elog.raising(info)
         else:
-            html = unicode(self.context()).encode(enc)
+            html = six.text_type(self.context()).encode(enc)
 
         # If no html - information about problem with page retrieval
         # should be returned
@@ -71,7 +68,7 @@ class ValidateSEOKeywordsView(BrowserView):
             page_text = transforms.convert("html_to_text", html).getData()
             # check every keyword on appearing in body of html page
             for keyword in keywords:
-                keyword_on_page = unicode(len(re.findall(u'\\b%s\\b' % keyword,
+                keyword_on_page = six.text_type(len(re.findall(u'\\b%s\\b' % keyword,
                                               page_text, re.I | re.U)))
                 result.append(' - '.join((keyword, keyword_on_page)))
 

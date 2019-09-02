@@ -1,8 +1,9 @@
-import unittest
 import doctest
+import unittest
 
-from quintagroup.seoptimizer.tests.base import FunctionalTestCase, \
-    FunctionalTestCaseNotInstalled, ztc
+from quintagroup.seoptimizer.tests.base import (FunctionalTestCase,
+                                                FunctionalTestCaseNotInstalled,
+                                                ztc)
 
 
 def test_suite():

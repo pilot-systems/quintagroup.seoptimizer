@@ -1,5 +1,5 @@
-from zope.interface import Interface
 from plone.theme.interfaces import IDefaultPloneLayer
+from zope.interface import Interface
 
 
 class IPloneSEOLayer(IDefaultPloneLayer):

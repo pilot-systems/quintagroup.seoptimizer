@@ -1,22 +1,19 @@
 from time import time
-from DateTime import DateTime
+
+import six
 from Acquisition import aq_inner
-from zope.component import queryAdapter
-from zope.component import queryMultiAdapter
-from zope.schema.interfaces import InvalidValue
-
-from plone.memoize import view, ram
-
+from DateTime import DateTime
+from plone import api
+from plone.memoize import ram, view
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFPlone.utils import getSiteEncoding
-
+from quintagroup.canonicalpath.adapters import \
+    PROPERTY_LINK as CANONICAL_PROPERTY
 from quintagroup.canonicalpath.interfaces import ICanonicalLink
-from quintagroup.canonicalpath.adapters import PROPERTY_LINK \
-    as CANONICAL_PROPERTY
-
 from quintagroup.seoptimizer import SeoptimizerMessageFactory as _
-from plone import api
+from six.moves import map
+from zope.component import queryAdapter, queryMultiAdapter
+from zope.schema.interfaces import InvalidValue
 
 SEPERATOR = '|'
 SEO_PREFIX = 'seo_'
@@ -111,8 +108,8 @@ class SEOContext(BrowserView):
         """
         glob = self.seo_globalCustomMetaTags()
         loc = self.seo_localCustomMetaTags()
-        gnames = set(map(lambda x: x['meta_name'], glob))
-        lnames = set(map(lambda x: x['meta_name'], loc))
+        gnames = set([x['meta_name'] for x in glob])
+        lnames = set([x['meta_name'] for x in loc])
         # Get untouch global, override global in custom
         # and new custom meta tags
         untouchglob = [t for t in glob
@@ -126,8 +123,8 @@ class SEOContext(BrowserView):
         """
         glob = self.seo_globalCustomMetaTags()
         loc = self.seo_localCustomMetaTags()
-        gnames = set(map(lambda x: x['meta_name'], glob))
-        lnames = set(map(lambda x: x['meta_name'], loc))
+        gnames = set([x['meta_name'] for x in glob])
+        lnames = set([x['meta_name'] for x in loc])
         return [t for t in glob if t['meta_name'] in list(gnames - lnames)]
 
     def seo_localCustomMetaTags(self):
@@ -228,7 +225,7 @@ class SEOContextPropertiesView(BrowserView):
                         try:
                             i_canonical_link = ICanonicalLink(self.context)
                             i_canonical_link.canonical_link = seo_value
-                        except InvalidValue, e:
+                        except InvalidValue as e:
                             state = "'%s' - wrong canonical url" % str(e)
                     else:
                         t_value = 'string'
@@ -305,11 +302,10 @@ class SEOContextPropertiesView(BrowserView):
     def getPropertyStopWords(self):
         """ Get property 'stop_words' from SEO Properties tool.
         """
-        enc = getSiteEncoding(self.context)
         # self.gseo.stop_words return list of unicode objects,
         # and may contains stop words in different languages.
         # So we must return encoded strings.
-        sw = map(lambda x: unicode.encode(x, enc), api.portal.get_registry_record('quintagroup.seoptimizer.stop_words'))
+        sw = [six.text_type.encode(x, 'utf-8') for x in api.portal.get_registry_record('quintagroup.seoptimizer.stop_words')]
         return str(sw)
 
     def getPropertyFields(self):
@@ -317,7 +313,7 @@ class SEOContextPropertiesView(BrowserView):
         """
         # self.gseo.fields return list of unicode objects,
         # so *str* use as encoding function from unicode to latin-1 string.
-        fields_id = map(str, api.portal.get_registry_record('quintagroup.seoptimizer.fields'))
+        fields_id = list(map(str, api.portal.get_registry_record('quintagroup.seoptimizer.fields')))
         return str(fields_id)
 
     def __call__(self):
