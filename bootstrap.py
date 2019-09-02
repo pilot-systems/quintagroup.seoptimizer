@@ -18,14 +18,22 @@ The script accepts buildout command-line options, so you can
 use the -c option to specify an alternate configuration file.
 """
 
+from __future__ import print_function
+
 import os
 import shutil
+import site  # imported because of its side effects
+import subprocess
 import sys
 import tempfile
-import urllib
-import urllib2
-import subprocess
 from optparse import OptionParser
+
+import zc.buildout.buildout
+
+import six.moves.urllib.error
+import six.moves.urllib.parse
+import six.moves.urllib.request
+from six.moves import map
 
 if sys.platform == 'win32':
     def quote(c):
@@ -56,14 +64,13 @@ if not has_broken_dash_S and 'site' in sys.modules:
     # We will restart with python -S.
     args = sys.argv[:]
     args[0:0] = [sys.executable, '-S']
-    args = map(quote, args)
+    args = list(map(quote, args))
     os.execv(sys.executable, args)
 # Now we are running with -S.  We'll get the clean sys.path, import site
 # because distutils will do it later, and then reset the path and clean
 # out any namespace packages from site-packages that might have been
 # loaded by .pth files.
 clean_path = sys.path[:]
-import site  # imported because of its side effects
 sys.path[:] = clean_path
 for k, v in sys.modules.items():
     if k in ('setuptools', 'pkg_resources') or (
@@ -84,7 +91,7 @@ def normalize_to_url(option, opt_str, value, parser):
     if value:
         if '://' not in value:  # It doesn't smell like a URL.
             value = 'file://%s' % (
-                urllib.pathname2url(
+                six.moves.urllib.request.pathname2url(
                     os.path.abspath(os.path.expanduser(value))),)
         if opt_str == '--download-base' and not value.endswith('/'):
             # Download base needs a trailing slash to make the world happy.
@@ -162,10 +169,10 @@ try:
     if not hasattr(pkg_resources, '_distribute'):
         raise ImportError
 except ImportError:
-    ez_code = urllib2.urlopen(
+    ez_code = six.moves.urllib.request.urlopen(
         options.setup_source).read().replace('\r\n', '\n')
     ez = {}
-    exec ez_code in ez
+    exec(ez_code, ez)
     setup_args = dict(to_dir=eggs_dir, download_delay=0)
     if options.download_base:
         setup_args['download_base'] = options.download_base
@@ -267,7 +274,6 @@ if exitcode != 0:
 
 ws.add_entry(eggs_dir)
 ws.require(requirement)
-import zc.buildout.buildout
 
 # If there isn't already a command in the args, add bootstrap
 if not [a for a in args if '=' not in a]:

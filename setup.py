@@ -3,7 +3,8 @@
 This module contains the tool of quintagroup.seoptimizer
 """
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 version = '4.4.dev0'
 
