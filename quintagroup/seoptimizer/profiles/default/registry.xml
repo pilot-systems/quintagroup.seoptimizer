@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <registry>
-    <record name="quintagroup.seoptimizer.stop_words">
-        <value purge="false">
+
+    <records prefix="quintagroup.seoptimizer" interface="quintagroup.seoptimizer.browser.seo_configlet.ISEOConfigletSchema">
+        <value key="stop_words">
             <element>a</element>
             <element>an</element>
             <element>amp</element>
@@ -56,16 +57,12 @@
             <element>you</element>
             <element>your</element>
         </value>
-    </record>
-    <record name="quintagroup.seoptimizer.fields">
-        <value purge="false">
+        <value key="fields">
             <element>seo_title</element>
             <element>seo_description</element>
             <element>seo_keywords"</element>
         </value>
-    </record>
-    <record name="quintagroup.seoptimizer.metatags_order" >
-        <value purge="false">
+        <value key="metatags_order">
             <element>DC.publisher</element>
             <element>DC.description</element>
             <element>DC.contributors</element>
@@ -83,15 +80,14 @@
             <element>robots</element>
             <element>distribution</element>
         </value>
-    </record>
-    <record name="quintagroup.seoptimizer.types_seo_enabled">
-        <value purge="false">
+        <value key="types_seo_enabled">
             <element>Document</element>
             <element>File</element>
             <element>News Item</element>
         </value>
-    </record>
-    <record name="quintagroup.seoptimizer.external_keywords_test">
-        <value>False</value>
-    </record>
+        <value key="external_keywords_test">
+            False
+        </value>
+        <value key="custom_script"></value>
+    </records>
 </registry>

@@ -196,7 +196,7 @@ class CustomScriptViewlet(ViewletBase):
     """ Simple viewlet for custom script rendering.
     """
     def getCustomScript(self):
-        return api.portal.get_registry_record('quintagroup.custom_script') or ''
+        return api.portal.get_registry_record('quintagroup.seoptimizer.custom_script') or ''
 
     def render(self):
         return safe_unicode("""%s""" % self.getCustomScript())

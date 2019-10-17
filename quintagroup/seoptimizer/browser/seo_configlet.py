@@ -11,10 +11,10 @@ class ISEOConfigletBaseSchema(Interface):
 
     exposeDCMetaTags = Bool(
         title=_("label_exposeDCMetaTags",
-                default='Expose <abbr title="Dublin Core">DC</abbr> '
+                default='Expose Dublin Core '
                 'meta tags'),
         description=_("description_seo_dc_metatags",
-                      default='Controls if <abbr title="Dublin Core">DC</abbr>'
+                      default='Controls if Dublin Core'
                       ' metatags are exposed to page header. They include '
                       'DC.description, DC.type, DC.format, DC.creator and '
                       'others.'),
