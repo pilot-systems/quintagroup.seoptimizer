@@ -29,4 +29,10 @@
       />
   </configure>
 
+    <adapter
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      provides=".interfaces.IMappingMetaTags"
+      factory=".adapters.MappingMetaTags"
+      />
+
 </configure>

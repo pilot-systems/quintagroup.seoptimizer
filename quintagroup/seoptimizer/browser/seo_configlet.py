@@ -39,7 +39,7 @@ class ISEOConfigletBaseSchema(Interface):
         required=False,
         default=tuple(),
         value_type=Choice(
-            vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes"))
+            vocabulary="plone.app.vocabularies.PortalTypes"))
 
     default_custom_metatags = List(
         title=_("label_default_custom_metatags",
