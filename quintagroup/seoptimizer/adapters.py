@@ -4,6 +4,7 @@ from quintagroup.seoptimizer.browser.seo_configlet import ISEOConfigletSchema
 from quintagroup.seoptimizer.interfaces import IMappingMetaTags, IMetaKeywords
 from zope.component import queryAdapter, queryMultiAdapter
 from zope.interface import implementer
+from plone import api
 
 METADATA_MAPS = dict([
     ("DC.publisher", "Publisher"),
@@ -44,19 +45,16 @@ class MetaKeywordsAdapter(object):
 implementer(IMappingMetaTags)
 class MappingMetaTags(object):
 
-
     def __init__(self, context):
         self.context = context
-        pps = queryMultiAdapter((self.context, self.context.REQUEST),
-                                name="plone_portal_state")
-        self.gseo = queryAdapter(pps.portal(), ISEOConfigletSchema)
 
     def getMappingMetaTags(self):
         """ See interface.
         """
         metadata_name = OrderedDict()
-        if self.gseo:
-            for mt in self.gseo.metatags_order:
-                if mt in METADATA_MAPS:
-                    metadata_name[mt] = METADATA_MAPS[mt]
+        metatags_order = api.portal.get_registry_record(
+            name='quintagroup.seoptimizer.metatags_order')
+        for mt in metatags_order:
+            if mt in METADATA_MAPS:
+                metadata_name[mt] = METADATA_MAPS[mt]
         return metadata_name
